@@ -15,6 +15,9 @@ import swal from 'sweetalert';
 import { Box } from '@material-ui/core';
 import Draggable from 'react-draggable';
 import DialogContentText from '@mui/material/DialogContentText';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
 import {
     Paper,
     Table,
@@ -25,9 +28,9 @@ import {
     TableRow,
     Container,
     Tooltip,
-    TextField
+    TextField,
+    Select
 } from "@material-ui/core";
-import AnswersList from '../Answers/AnswersList';
 
 function PaperComponent(props) {
     return (
@@ -74,91 +77,70 @@ const BootstrapDialogTitle = (props) => {
     );
 };
 
-const QuestionsList = ({ open, setOpen, questions, idQu }) => {
+const AnswersList = ({ open = false, setOpen = false, answers, idQues }) => {
+
     const httpService = new HttpService();
-    const [openEditQ, setOpenEditQ] = useState(false);
-    const [pregunta, setPregunta] = useState({});
+    const [openEditA, setOpenEditA] = useState(false);
+    const [respuesta, setRespuesta] = useState({});
     const [editBtnQ, setEditBtnQ] = useState(false);
     const [createBtnQ, setCreateBtnQ] = useState(false);
     const [openDelete, setOpenDelete] = useState(false);
-    const [idQues, setIdQues] = useState(0);
-    const [openAnswers, setOpenAnswers] = useState({ answers: false });
-    const [answers, setAnswers] = useState([]);
 
     const handleClose = () => {
-        setOpen((prv) => ({ ...prv, detail: false }));
+        setOpen((prv) => ({ ...prv, answers: false }));
     };
-
-    const handleCloseEve = (action) => () => {
-        if (action === 'delete') {
-            setOpenDelete(false);
-        }
-    };
-
 
     const goToAction = (data, action) => () => {
         if (action === 'edit') {
-            setPregunta(data);
-            setOpenEditQ(true);
+            setRespuesta(data);
+            setOpenEditA(true);
             setEditBtnQ(true)
             setCreateBtnQ(false);
         }
         if (action === 'create') {
-            setPregunta(data);
-            setOpenEditQ(true);
+            setRespuesta(data);
+            setOpenEditA(true);
             setEditBtnQ(false);
             setCreateBtnQ(true);
         };
 
         if (action === 'delete') {
-            setPregunta(data);
+            setRespuesta(data);
             setOpenDelete(true);
         }
 
-        if (action === 'answers') {
-            setPregunta(data);
-            httpService.getAnswersListByQues(data._id).then(data => { setAnswers(data); });
-            setOpenAnswers((prv) => ({ ...prv, [action]: true }));
-            setIdQues(data._id);
-        }
     };
 
     const handleChange = e => {
-        setPregunta({
-            ...pregunta,
+        setRespuesta({
+            ...respuesta,
             [e.target.name]: e.target.value
         });
     };
+    const onCreateA = async (e) => {
 
-    const onUpdateQ = async (e) => {
-        if (pregunta.name == "") {
+        if (respuesta == "") {
             swal({ text: "Nombre Vacio", icon: "error", timer: "10000" });
             return;
         }
-        setOpenEditQ(false);
-        httpService.editQuestions(pregunta)
-            .then((res) => {
-                if (res.error) {
-                    swal({ text: res.error, icon: "error", timer: "3000" });
-                } else {
-                    swal({ text: "Actualización Exitosa", icon: "success", timer: "7000" });
-                }
-            })
-            .catch((err) => {
-                swal({ text: err.error, icon: "error", timer: "3000" });
-            });
-    };
 
-    const onCreateQ = async (e) => {
-
-        if (pregunta == "") {
-            swal({ text: "Nombre Vacio", icon: "error", timer: "10000" });
+        if (respuesta.respuesta == null) {
+            swal({ text: "Campo respuesta Vacio", icon: "error", timer: "10000" });
             return;
         }
-        pregunta.quizId = idQu;
 
-        setOpenEditQ(false);
-        httpService.createQuestion(pregunta)
+        if (respuesta.respuesta == 1) {
+            respuesta.isCorrect = true;
+        }
+
+        if (respuesta.respuesta == 2) {
+            respuesta.isCorrect = false;
+        }
+
+        respuesta.questionId = idQues;
+
+        ; setOpenEditA(false);
+        httpService.createAnswers(respuesta)
             .then((res) => {
                 if (res.error) {
                     swal({ text: res.error, icon: "error", timer: "3000" });
@@ -171,9 +153,48 @@ const QuestionsList = ({ open, setOpen, questions, idQu }) => {
             });
     };
 
-    const onDeleteQ = async (e) => {
+    const onUpdateA = async (e) => {
+        if (respuesta.name == "") {
+            swal({ text: "Nombre Vacio", icon: "error", timer: "10000" });
+            return;
+        }
+
+        if (respuesta.respuesta == null) {
+            swal({ text: "Campo respuesta Vacio", icon: "error", timer: "10000" });
+            return;
+        }
+
+        if (respuesta.respuesta == 1) {
+            respuesta.isCorrect = true;
+        }
+
+        if (respuesta.respuesta == 2) {
+            respuesta.isCorrect = false;
+        }
+
+        setOpenEditA(false);
+        httpService.editAnswers(respuesta)
+            .then((res) => {
+                if (res.error) {
+                    swal({ text: res.error, icon: "error", timer: "3000" });
+                } else {
+                    swal({ text: "Actualización Exitosa", icon: "success", timer: "7000" });
+                }
+            })
+            .catch((err) => {
+                swal({ text: err.error, icon: "error", timer: "3000" });
+            });
+    };
+
+    const handleCloseEve = (action) => () => {
+        if (action === 'delete') {
+            setOpenDelete(false);
+        }
+    };
+
+    const onDeleteA = async (e) => {
         setOpenDelete(false);
-        httpService.deleteQuestion(pregunta)
+        httpService.deleteAnswers(respuesta)
             .then((res) => {
                 if (res.error) {
                     swal({ text: res.error, icon: "error", timer: "3000" });
@@ -189,29 +210,33 @@ const QuestionsList = ({ open, setOpen, questions, idQu }) => {
 
     return (
         <div>
-            <BootstrapDialog aria-labelledby="customized-dialog-title" open={open.detail} onClose={handleClose}>
-                <BootstrapDialogTitle id="customized-dialog-title" > Lista de Preguntas </BootstrapDialogTitle>
+            <BootstrapDialog aria-labelledby="customized-dialog-title" open={open.answers} onClose={handleClose}>
+                <BootstrapDialogTitle id="customized-dialog-title" > Lista de Respuestas </BootstrapDialogTitle>
                 <DialogContent dividers>
                     <Box style={{ float: 'right' }}>
                         <Button variant="outlined" style={{ color: '#fff', background: '#00AFA4', border: 0 }} onClick={goToAction('', 'create')}>
-                            Agregar Pregunta
+                            Agregar Respuesta
                         </Button>
                     </Box>
                     <TableContainer component={Paper}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="center" className="headTable"> Pregunta</TableCell>
+                                    <TableCell align="center" className="headTable"> Respuestas</TableCell>
+                                    <TableCell align="center" className="headTable"> Correcta</TableCell>
                                     <TableCell align="center" className="headTable">Accion</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {questions &&
-                                    questions.data &&
-                                    questions.data.map((row) => (
+                                {answers &&
+                                    answers.data &&
+                                    answers.data.map((row) => (
                                         <TableRow key={row._id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                             <TableCell component="th" scope="row" align="center">
                                                 {row.name}
+                                            </TableCell>
+                                            <TableCell component="th" scope="row" align="center">
+                                                {row.isCorrect == true ? "SI" : "NO"}
                                             </TableCell>
                                             <TableCell align="center">
                                                 <Tooltip title="Editar">
@@ -241,7 +266,7 @@ const QuestionsList = ({ open, setOpen, questions, idQu }) => {
             </BootstrapDialog>
 
             {/* Modal Edit Question */}
-            <BootstrapDialog aria-labelledby="customized-dialog-title" open={openEditQ}>
+            <BootstrapDialog aria-labelledby="customized-dialog-title" open={openEditA}>
                 <BootstrapDialogTitle id="customized-dialog-title"> Actualizar Preguntas</BootstrapDialogTitle>
                 <DialogContent dividers>
                     <TextField
@@ -252,22 +277,34 @@ const QuestionsList = ({ open, setOpen, questions, idQu }) => {
                         variant='outlined'
                         label='Pregunta'
                         name='name'
-                        value={pregunta.name}
+                        value={respuesta.name}
                         onChange={handleChange}
                     />
+                    <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Correcta</InputLabel>
+                        <Select
+
+                            name="respuesta"
+                            value={respuesta.respuesta}
+                            label="Correcta"
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={1}>Si</MenuItem>
+                            <MenuItem value={2}>No</MenuItem>
+                        </Select>
+                    </FormControl>
                 </DialogContent>
                 <DialogActions>
                     {createBtnQ && (
-                        <Button autoFocus onClick={onCreateQ}>Agregar</Button>
+                        <Button autoFocus onClick={onCreateA}>Agregar</Button>
                     )}
                     {editBtnQ && (
-                        <Button autoFocus onClick={onUpdateQ}>Actualizar</Button>
+                        <Button autoFocus onClick={onUpdateA}>Actualizar</Button>
                     )}
                 </DialogActions>
             </BootstrapDialog>
 
-
-            {/* Modal delete question */}
+            {/* Modal delete Answers */}
             <Dialog open={openDelete} onClose={handleCloseEve('edit')} PaperComponent={PaperComponent} aria-labelledby="draggable-dialog-title">
                 <DialogTitle style={{ cursor: 'move' }} id="draggable-dialog-title">
                     Advertencia
@@ -281,14 +318,10 @@ const QuestionsList = ({ open, setOpen, questions, idQu }) => {
                     <Button autoFocus onClick={handleCloseEve('delete')}>
                         Cancelar
                     </Button>
-                    <Button onClick={onDeleteQ}>Eliminar</Button>
+                    <Button onClick={onDeleteA}>Eliminar</Button>
                 </DialogActions>
             </Dialog>
-
-            {/* Modal Detail Answers */}
-            <AnswersList open={openAnswers} setOpen={setOpenAnswers} answers={answers} idQues={idQues}></AnswersList>
-
         </div>
     );
 };
-export default QuestionsList;
+export default AnswersList;

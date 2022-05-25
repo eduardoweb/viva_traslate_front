@@ -18,6 +18,7 @@ import Draggable from 'react-draggable';
 import DialogContentText from '@mui/material/DialogContentText';
 import QuestionsList from '../Questions/QuestionsList';
 
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
         padding: theme.spacing(2),
@@ -350,6 +351,8 @@ const QuizzesList = () => {
 
                 {/* Modal Detail Questions */}
                 <QuestionsList open={openDetail} setOpen={setOpenDetail} questions={questions} idQu={idQu}></QuestionsList>
+
+
             </div>
         </>
     );

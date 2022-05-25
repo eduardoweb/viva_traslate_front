@@ -117,5 +117,38 @@ export class HttpService {
 			})
 	};
 
+	editAnswers(datos) {
+		return axios.put(`${endpoint}/api/answers/${datos._id}`, { name: datos.name, isCorrect : datos.isCorrect })
+			.then(res => {
+				const data = res.data;
+				return Promise.resolve(data);
+
+			}).catch(error => {
+				return Promise.reject(error);
+			})
+	};
+
+	createAnswers(datos) {
+		return axios.post(`${endpoint}/api/answers`, datos)
+			.then(res => {
+				const data = res.data;
+				return Promise.resolve(data);
+
+			}).catch(error => {
+				return Promise.reject(error);
+			})
+	};
+
+	deleteAnswers(datos) {
+		return axios.delete(`${endpoint}/api/answers/${datos._id}`)
+			.then(res => {
+				const data = res.data;
+				return Promise.resolve(data);
+
+			}).catch(error => {
+				return Promise.reject(error);
+			})
+	};
+
 }
 
