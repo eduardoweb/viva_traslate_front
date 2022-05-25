@@ -1,0 +1,156 @@
+.header {
+  min-width: 100px;
+  height: 100vh;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  background: #FFFFFF;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.header menu {
+  padding: 0;
+  margin: 0;
+}
+
+menu li {
+  padding: 24px 35px;
+}
+
+.menuClosed li p,
+.menuClosed li .logoImg,
+.menuClosed .userProfile .user {
+  display: none;
+}
+
+menu .icon {
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+}
+
+menu .logo {
+  border-bottom: 1px solid #CCCCCC;
+  padding-left: 40px;
+}
+menu .logo :hover {
+  cursor: pointer;
+}
+
+.logo .menu {
+  background: url(../../images/menu.svg) no-repeat;
+}
+.logo .logoImg {
+  background: url(../../images/dftfulfillment.svg) no-repeat;
+  width: 137px;
+  height: 18px;
+  display: inline-block;
+  vertical-align: super;
+  margin-left: 25px;
+}
+
+menu .order {
+  background: url(../../images/orders.svg) no-repeat;
+  margin-left: 3px;
+}
+
+menu .waves {
+  background: url(../../images/waves.svg) no-repeat;
+  margin-left: 3px;
+  vertical-align: bottom;
+}
+menu .zones {
+  background: url(../../images/zones.svg) no-repeat;
+}
+menu .zonelocations {
+  background: url(../../images/zonelocations.svg) no-repeat;
+  padding-bottom: 3px;
+  margin-left: 3px;
+}
+
+menu .locations {
+  background: url(../../images/locations.svg) no-repeat;
+  padding-bottom: 3px;
+  vertical-align: bottom;
+}
+menu .userszones {
+  background: url(../../images/userszones.svg) no-repeat;
+}
+
+menu p,
+menu .userProfile .user .logout {
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 20px;
+  display: inline-block;
+  margin: 0 0 0 25px;
+  vertical-align: super;
+}
+
+menu .menuSelected p,
+menu li:hover p,
+menu .userProfile .user .logout:hover {
+  color: #00AFA4;
+}
+menu .menuSelected .order,
+menu li:hover .order {
+  background: url(../../images/orders-selected.svg) no-repeat;
+}
+menu .menuSelected .waves,
+menu li:hover .waves {
+  background: url(../../images/waves-selected.svg) no-repeat;
+}
+menu .menuSelected .zones,
+menu li:hover .zones {
+  background: url(../../images/zones-selected.svg) no-repeat;
+}
+menu .menuSelected .zonelocations,
+menu li:hover .zonelocations {
+  background: url(../../images/zonelocations-selected.svg) no-repeat;
+}
+menu .menuSelected .locations,
+menu li:hover .locations {
+  background: url(../../images/locations-selected.svg) no-repeat;
+}
+menu .menuSelected .userszones,
+menu li:hover .userszones {
+  background: url(../../images/userszones-selected.svg) no-repeat;
+}
+
+menu li:hover {
+  background: #D9F3F1;
+}
+
+menu .userProfile {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+menu .userProfile .gravatar {
+  width: 28px;
+  display: inline-block;
+  border-radius: 250px;
+  -moz-border-radius: 250px;
+  -webkit-border-radius: 250px;
+  vertical-align: super;
+}
+menu .userProfile:hover {
+  background: none;
+}
+menu .userProfile:hover p {
+  color: #000;
+}
+
+menu .userProfile .user {
+  display: inline-block;
+  vertical-align: super;
+}
+menu .userProfile .user p,
+menu .userProfile .user .logout {
+  display: block;
+}
+
+.user p{
+  font-weight: bold;
+}
