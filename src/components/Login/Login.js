@@ -88,9 +88,18 @@ const Login = () => {
 		if (!data.error) {
 			setUsuario(data.data.user);
 			setToken(data.data.token);
+			localStorage.setItem('name_user', data.data.user.name);
 			navigate("/");
 		} else{
-			swal({ text: data.error, icon: "error", timer: "10000" });
+			let errors
+			if (data.error == "USER_NOT_EXISTS"){
+				errors= "Usuario Incorrecto";
+			}
+			if (data.error == "PASSWORD_INVALID"){
+				errors= "Clave Invalida";
+			}
+
+			swal({ text: errors, icon: "error", timer: "10000" });
 		}
 	}
 

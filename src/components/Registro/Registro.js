@@ -80,8 +80,9 @@ const Registro = () => {
 		if (!data.errors) {
 			setUsuario(data.data.user);
 			setToken(data.data.token);
+			localStorage.setItem('name_user', data.data.user.name);
 			swal({ text: "Registro Exitoso!", icon: "success", timer: "7000" });
-			navigate("/dashboard");
+			navigate("/");
 		} else {
 			swal({ text: data.errors, icon: "error", timer: "10000" });
 		}

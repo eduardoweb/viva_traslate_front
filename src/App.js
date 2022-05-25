@@ -16,6 +16,7 @@ initAxiosInterceptors();
 function App() {
 
 	console.log(store.getState())
+	let text = "";
 
 	return (
 		<Provider store={store}>
