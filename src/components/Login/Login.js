@@ -74,24 +74,24 @@ const Login = () => {
 
 	async function onSubmit() {
 		dispatch(add_question_action(1));
-		// if (body.email ==""){
-		// 	swal({ text: "Email vacio", icon: "error", timer: "10000" });
-		// 	return;
-		// }
+		if (body.email ==""){
+			swal({ text: "Email vacio", icon: "error", timer: "10000" });
+			return;
+		}
 
-		// if (body.password ==""){
-		// 	swal({ text: "Clave vacia", icon: "error", timer: "10000" });
-		// 	return;
-		// }
+		if (body.password ==""){
+			swal({ text: "Clave vacia", icon: "error", timer: "10000" });
+			return;
+		}
 
-		// const { data } = await Axios.post(`${process.env.REACT_APP_RUTA_API}/api/auth/login`, body)
-		// if (!data.error) {
-		// 	setUsuario(data.data.user);
-		// 	setToken(data.data.token);
-		// 	navigate("/");
-		// } else{
-		// 	swal({ text: data.error, icon: "error", timer: "10000" });
-		// }
+		const { data } = await Axios.post(`${process.env.REACT_APP_RUTA_API}/api/auth/login`, body)
+		if (!data.error) {
+			setUsuario(data.data.user);
+			setToken(data.data.token);
+			navigate("/");
+		} else{
+			swal({ text: data.error, icon: "error", timer: "10000" });
+		}
 	}
 
 	return (

@@ -42,7 +42,7 @@ const Dashboard = () => {
           <StyledContent>
             <div className="mainMenu">
               <li>
-                <Link to="/orders">
+                <Link to="/quizzes">
                   <div className="orderMainMenu" />
                   <p>Adm Cuestionarios</p>
                 </Link>
