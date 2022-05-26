@@ -9,7 +9,8 @@ const questionReducer = (state = default_questions, action) => {
         case ADD_QUESTION: {
             return {
                 ...state,
-                question: state.question + action.payload
+                // question: state.question + action.payload
+                question: action.payload
             }
         }
 

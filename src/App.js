@@ -4,6 +4,7 @@ import Login from "./components/Login/Login";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Registro from "./components/Registro/Registro";
 import Quizzes from "./containers/Quizzes";
+import Play from "./components/Play/Play";
 import { loggedIn } from "./AuthHelperMethods";
 import { useNavigate } from 'react-router-dom';
 import { initAxiosInterceptors } from "./AuthHelperMethods";
@@ -26,6 +27,7 @@ function App() {
 					<Route path="/login" element={<Login />}> </Route>
 					<Route path="/registro" element={<Registro />}> </Route>
 					<Route path="/quizzes" element={<Quizzes />}> </Route>
+					<Route path="/play" element={<Play />}></Route>
 				</Routes>
 			</div>
 		</Provider>

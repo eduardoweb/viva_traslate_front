@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
+import buscador from "./answersFindReducer";
 import questionReducer from './questionReducer';
 
 const rootReducer = combineReducers({
-    questionReducer
+    questionReducer,
+    buscador
 });
 
 export default rootReducer;

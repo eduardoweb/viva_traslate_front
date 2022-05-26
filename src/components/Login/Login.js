@@ -7,8 +7,6 @@ import Axios from "axios";
 import { setToken } from "../../AuthHelperMethods";
 import swal from 'sweetalert';
 import { Link  } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { add_question_action, delete_question_action } from "../../redux/actions/questionAction";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -52,9 +50,6 @@ const clearStorage = () => {
 
 const Login = () => {
 
-		const questionReducer = useSelector((state) => state.questionReducer.question);
-		const dispatch = useDispatch();
-
 	useEffect(() => {
         clearStorage();
         return () => { };
@@ -73,7 +68,6 @@ const Login = () => {
 	};
 
 	async function onSubmit() {
-		dispatch(add_question_action(1));
 		if (body.email ==""){
 			swal({ text: "Email vacio", icon: "error", timer: "10000" });
 			return;
@@ -111,7 +105,7 @@ const Login = () => {
 					<Avatar className={classes.avatar}>
 						<LockOutlinedIcon />
 					</Avatar>
-					<Typography component='h1' variant='h5'>Sign In {questionReducer}</Typography>
+					<Typography component='h1' variant='h5'>Sign In </Typography>
 					<form className={classes.form}>
 						<TextField
 							fullWidth

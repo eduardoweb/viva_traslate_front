@@ -54,13 +54,7 @@ const Dashboard = () => {
               </Link>
             </li>
             <li>
-              <Link to="/priorities">
-                <div className="wavesMainMenu" />
-                <p>Adm Preguntas</p>
-              </Link>
-            </li>
-            <li>
-              <Link to="/assignations">
+              <Link to="/play">
                 <div className="wavesMainMenu" />
                 <p>JUGAR!</p>
               </Link>

@@ -249,11 +249,6 @@ const AnswersList = ({ open = false, setOpen = false, answers, idQues }) => {
                                                         <DeleteIcon />
                                                     </IconButton>
                                                 </Tooltip>
-                                                <Tooltip title="Ver Resuestas">
-                                                    <IconButton aria-label="detail" onClick={goToAction(row, 'answers')}>
-                                                        <VisibilityIcon />
-                                                    </IconButton>
-                                                </Tooltip>
                                             </TableCell>
                                         </TableRow>
                                     ))}
@@ -267,7 +262,7 @@ const AnswersList = ({ open = false, setOpen = false, answers, idQues }) => {
 
             {/* Modal Edit Question */}
             <BootstrapDialog aria-labelledby="customized-dialog-title" open={openEditA}>
-                <BootstrapDialogTitle id="customized-dialog-title"> Actualizar Preguntas</BootstrapDialogTitle>
+                <BootstrapDialogTitle id="customized-dialog-title"> Actualizar Respuesta</BootstrapDialogTitle>
                 <DialogContent dividers>
                     <TextField
                         fullWidth
